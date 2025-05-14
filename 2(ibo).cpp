@@ -2,70 +2,73 @@
 using namespace std;
 
 #define N 100
-
-struct Stack {
-    int S[N];
-    int top;
+struct stackk{
+int S[N];
+int top;
 };
-
-
-void CreateStack(Stack *stack) {//Stack'e yeni eleman eklemek
-    stack->top= - 1;
-    }
-
-
-bool isEmpty(Stack *stack) {
-    return  stack->top== - 1;
-}
-
-void push(Stack *stack,int newitem) {// Stack’in tepesindeki elemanı ekrana yazdırmak
-    if (stack->top== N- 1) {
-        cout << "Stack overflow.\n";
-        return;
-    }
-   stack->top++;
-   stack->S[stack->top]=newitem;
-}
-
-int pop(Stack *stack) {
-    if (isEmpty(stack)) {
-        cout << "Stack underflow.\n";
-        return -1;  // Hatalı durum için özel değer
-    }
-    int idx = stack->top;
-    stack->top--;
-    return stack->S[idx];
-}
-
-// Stack'in tepesindeki elemanı döndürür
-int top(Stack *stack) {
-    if (isEmpty(stack)) {
-        cout << "Stack underflow.\n";
-        return -1;
-    }
-    return stack->S[stack->top];
-}
+void createstack(stackk *mystack);
+bool isempty(stackk* mystack);
+void push(stackk *mystack,int newitem);//eleman eklemek için
+int pop(stackk *mystack);//en üstteki elemanı çıkarır
+int top(stackk *mystack);//en üstteki elemanı yazdırır
 
 int main() {
-    Stack s;
-    CreateStack(&s);
-
-    if (isEmpty(&s)) {
-        cout << "Stack boş.\n";
+    stackk mystack;
+    createstack(&mystack);
+    if(isempty(&mystack)){
+        cout<<"stack bos;";
     }
+    push(&mystack,49);
+    push(&mystack,23);
+    cout << "Stack'in tepesindeki eleman: " << top(&mystack) << endl;
 
-    push(&s, 49);
-    push(&s, 23);
+    push(&mystack, 44);
+    push(&mystack, 22);
+     cout << "Stack'in tepesindeki eleman: " << top(&mystack) << endl;
 
-    cout << "Stack'in tepesindeki eleman: " << top(&s) << endl;
+    // Stack'ten elemanları çıkaralım
+    cout << "Pop: " << pop(&mystack) << endl;
+    cout << "Pop: " << pop(&mystack) << endl;
+    cout << "Pop: " << pop(&mystack) << endl;
+    cout << "Pop: " << pop(&mystack) << endl;
 
-    push(&s, 44);
-    push(&s, 22);
 
-    cout << "Pop: " << pop(&s) << endl;
-    cout << "Pop: " << pop(&s) << endl;
-    cout << "Pop: " << pop(&s) << endl;
-    cout << "Pop: " << pop(&s) << endl;
 
     return 0;
+}
+int top(stackk *mystack){
+     if (isempty(mystack)) {
+        cout << "Stack underflow. Eleman yok!\n";
+        return -1;
+    }
+
+return mystack->S[mystack->top];
+
+}
+int pop(stackk *mystack){
+     if (isempty(mystack)) {
+        cout << "Stack underflow. Eleman yok!\n";
+        return -1;  // Hatalı durum için özel bir değer döndürüyoruz
+}
+int i=mystack->top;
+    mystack->top--;
+    return mystack->S[i];
+}
+void push(stackk *mystack,int newitem){
+if(mystack->top==N-1){
+    cout<<"owerflow";
+    return ;
+}
+mystack->top++;
+mystack->S[mystack->top]=newitem;
+
+}
+
+void createstack(stackk *mystack){
+mystack->top=-1;
+
+}
+
+bool isempty(stackk *mystack){
+return mystack->top==-1;
 }
